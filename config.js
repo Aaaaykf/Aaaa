@@ -1,6 +1,6 @@
 module.exports = {
-    TOKEN: 'token',    
+    TOKEN: 'NjYxNjYwNjg4NTYwODE2MTM5.XlGpcA.hD1tVf2jRuHvSc0QRM-a8jguucA',    
     YT_API_KEY: 'api ', 
-    prefix: 'your prefix',
-    devs: ['owner id']
+    prefix: '#',
+    devs: ['359541019836022784']
 }
