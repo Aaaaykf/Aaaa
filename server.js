@@ -156,7 +156,7 @@ client.on('ready',  () => {
 });
 
 const developers = ['335645388323160064'] //الايدي هنا
-const adminprefix = "#"//برفكس
+const adminprefix = "$"//برفكس
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
       if (!developers.includes(message.author.id)) return;
