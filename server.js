@@ -6,7 +6,7 @@ app.get("/", (request, response) => {
 });
 app.listen(process.env.PORT);
 setInterval(() => {
-  http.get(`http://brodcast-tn.glitch.me/`);
+  http.get(`http://opbcsilent.glitch.me/`);
 }, 280000);
 
 // كل البكجات الي ممكن تحتجها في اي بوت 
@@ -135,7 +135,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "335645388323160064") return;
+    if (!message.author.id === "416602464020594698") return;
     client.user.setUsername(args);
     message.channel.send(`تم تغيير الاسم الى ..**${args}** `);
   } else if (message.content.startsWith(prefix + "setavatar")) {
@@ -143,7 +143,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "335645388323160064") return;
+    if (!message.author.id === "416602464020594698") return;
     client.user.setAvatar(args).catch(err => message.reply("send a valid url"));
     message.channel.send(`تم تغيير الصورة الى :**${args}** `);
   }
@@ -151,8 +151,14 @@ client.on("message", async message => {
 
 ///تغير الحالة
 
-client.on('ready',  () => {
-  console.log("ffff");
+client.on("ready", () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+client.on("ready", () => {
+  client.user.setStatus("idle");
+});
+client.on("ready", () => {
+  client.user.setActivity(`${prefix}bc silent`, { type: "WATCHING" });
 });
 
 //اختصارات للاوامر
