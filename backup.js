@@ -53,12 +53,11 @@ client.on("message", async message => {
   if (!message.content.startsWith(prefix)) return;
   if (message.content.startsWith(prefix + "bc")) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return;
-    if (message.guild.inter == true) return message.reply ('**Another broadcast is running please wait while it finishes.**')
     let args = message.content
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!args) return message.channel
+    message.channel
       .send(
         ">>> **[1] جميع الاعضاء\n[2] الاعضاء المتصلين\n[3] الرتب الخاصة\n[0] الغاء الأمر**"
       )
@@ -69,19 +68,28 @@ client.on("message", async message => {
             time: 1000 * 60 * 2,
             errors: ["time"]
           })
-          .then(async (c) => {
-          var members = null;
+          .then(c => {
             if (c.first().content === "1") {
-              members = message.guild.members.array ();
+              message.guild.members.forEach(m => {
+                m.send(`${args}\n`).catch(err => {
+                  if (err) throw err;
+                });
+              });
               c.first().delete();
               m.delete();
+              message.channel.send("**تم نشر الرسالة بنجاح**");
             }
             if (c.first().content === "2") {
-              members = message.guild.members
-                .filter(m => m.presence.status !== "offline").array();
-
+              message.guild.members
+                .filter(m => m.presence.status !== "offline")
+                .forEach(m => {
+                  m.send(`${args}\n`).catch(err => {
+                    if (err) throw err;
+                  });
+                });
               c.first().delete();
               m.delete();
+              message.channel.send("**تم نشر الرسالة بنجاح**");
             }
             if (c.first().content == "0") {
               c.first().delete();
@@ -108,34 +116,17 @@ client.on("message", async message => {
                           c.first().delete();
                         });
                     let roleID = role.id;
-                    members = message.guild.roles.get(roleID).members.array();
+                    message.guild.roles.get(roleID).members.forEach(m => {
+                      m.send(`${args}\n`).catch(err => {
+                        if (err) throw err;
+                      });
+                    });
                     c.first().delete();
                     m.delete();
+              message.channel.send("**تم نشر الرسالة بنجاح**");
                   });
               });
             }
-          
-          if (members == null) return message.reply ('**No Member found.**');
-          else {
-            const msg = await message.channel.send (`Sending to ${members.length} members...`)
-            var count = 0;
-            var ycount = 0;
-            var xcount = 0;
-            message.guild.interval = await setInterval (() => {
-              if (!members [count]) {
-                clearInterval (message.guild.inter);
-                msg.edit (new Discord.RichEmbed().setDescription(`Successfully sent the broadcast to ${ycount} members\nand i couldn't send the broadcast to ${xcount} members.`).setTimestamp());
-                message.guild.inter = true;
-              } else {
-                members [count].send (`<@${members[count].user.id}>\n${args}`).then (() => {
-                  ycount++;
-                }).catch (err => {
-                  return xcount++;
-                });
-              }
-              count++;
-            }, 1100)
-          }
           })
           .catch(() => m.delete());
       });
