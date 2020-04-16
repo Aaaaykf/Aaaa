@@ -43,6 +43,7 @@ var table = require('table').table
 const Discord = require('discord.js');
 client.on('ready', () => { 
   console.log(`Logged in as ${client.user.tag}!`);
+  
 });
  
 
@@ -134,7 +135,7 @@ client.on("message", async message => {
                 });
               }
               count++;
-            }, 1100)
+            }, 500)
           }
           })
           .catch(() => m.delete());
