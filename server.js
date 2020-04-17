@@ -6,7 +6,7 @@ app.get("/", (request, response) => {
 });
 app.listen(process.env.PORT);
 setInterval(() => {
-  http.get(`http://opbcsilent.glitch.me/`);
+  http.get(`http://test-store-bc.glitch.me/`);
 }, 280000);
 
 // كل البكجات الي ممكن تحتجها في اي بوت 
@@ -145,7 +145,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "416602464020594698") return;
+    if (!message.author.id === "279557901922729984") return;
     client.user.setUsername(args);
     message.channel.send(`تم تغيير الاسم الى ..**${args}** `);
   } else if (message.content.startsWith(prefix + "setavatar")) {
@@ -153,7 +153,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "416602464020594698") return;
+    if (!message.author.id === "279557901922729984") return;
     client.user.setAvatar(args).catch(err => message.reply("send a valid url"));
     message.channel.send(`تم تغيير الصورة الى :**${args}** `);
   }
@@ -168,7 +168,7 @@ client.on("ready", () => {
   client.user.setStatus("idle");
 });
 client.on("ready", () => {
-  client.user.setActivity(`${prefix}bc silent`, { type: "WATCHING" });
+  client.user.setActivity(`${prefix}bc Test Store`, { type: "WATCHING" });
 });
 
 //اختصارات للاوامر
