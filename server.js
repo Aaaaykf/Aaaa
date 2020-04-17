@@ -54,7 +54,7 @@ client.on("message", async message => {
   if (!message.content.startsWith(prefix)) return;
   if (message.content.startsWith(prefix + "bc")) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return;
-    if (message.guild.inter == true) return message.reply ('**Another broadcast is running please wait while it finishes.**')
+    if (message.guild.inter) return message.reply ('**Another broadcast is running please wait while it finishes.**')
     let args = message.content
       .split(" ")
       .slice(1)
@@ -130,7 +130,7 @@ client.on("message", async message => {
               if (!members [count]) {
                 clearInterval (message.guild.inter);
                 msg.edit (new Discord.RichEmbed().setDescription(`** Successfully sent the broadcast to ${ycount} members\nand i couldn't send the broadcast to ${xcount} members.**`).setTimestamp());
-                message.guild.inter = true;
+                message.guild.interval = false;
               } else if (!members[count].user.bot) {
                 members [count].send (`${args}`).then (() => {
                   ycount++;
