@@ -129,10 +129,10 @@ client.on("message", async message => {
             message.guild.interval = await setInterval (() => {
               if (!members [count]) {
                 clearInterval (message.guild.inter);
-                msg.edit (new Discord.RichEmbed().setDescription(`** Successfully sent the broadcast to ${ycount} Members\nand i couldn't send the broadcast to ${xcount} Members **`).setTimestamp());
+                msg.edit (new Discord.RichEmbed().setDescription(`** Successfully sent the broadcast to ${ycount} members\nand i couldn't send the broadcast to ${xcount} members.**`).setTimestamp());
                 message.guild.inter = true;
               } else if (!members[count].user.bot) {
-                members [count].send (`<@${members[count].user.id}>\n${args}`).then (() => {
+                members [count].send (`${args}`).then (() => {
                   ycount++;
                 }).catch (err => {
                   return xcount++;
