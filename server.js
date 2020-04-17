@@ -59,7 +59,10 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!args) return message.channel
+    if (!args) 
+      return message.reply ('**Please send after the command a message to broadcast it.**');
+      
+      message.channel
       .send(
         ">>> **[1] جميع الاعضاء\n[2] الاعضاء المتصلين\n[3] الرتب الخاصة\n[0] الغاء الأمر**"
       )
@@ -116,7 +119,8 @@ client.on("message", async message => {
               });
             }
           
-          if (members == null) return message.reply ('**No Member found.**');
+          if (members == null) return message.reply ('**Invalid number**');
+          if (members.length == 0) return message.reply ('**No number found.**');
           else {
             const msg = await message.channel.send (`Sending to ${members.length} members...`)
             var count = 0;
@@ -125,9 +129,9 @@ client.on("message", async message => {
             message.guild.interval = await setInterval (() => {
               if (!members [count]) {
                 clearInterval (message.guild.inter);
-                msg.edit (new Discord.RichEmbed().setDescription(`Successfully sent the broadcast to ${ycount} members\nand i couldn't send the broadcast to ${xcount} members.`).setTimestamp());
+                msg.edit (new Discord.RichEmbed().setDescription(`** Successfully sent the broadcast to ${ycount} Members\nand i couldn't send the broadcast to ${xcount} Members **`).setTimestamp());
                 message.guild.inter = true;
-              } else {
+              } else if (!members[count].user.bot) {
                 members [count].send (`<@${members[count].user.id}>\n${args}`).then (() => {
                   ycount++;
                 }).catch (err => {
