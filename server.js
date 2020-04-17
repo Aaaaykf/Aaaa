@@ -53,14 +53,14 @@ client.on("message", async message => {
   if (!message.guild || message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
   if (message.content.startsWith(prefix + "bc")) {
-    if (!message.member.hasPermission("ADMINISTRATOR")) return;
-    if (message.guild.inter) return message.reply ('**Another broadcast is running please wait while it finishes.**')
+    if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply ('You dont have Permissions.');
+    if (message.guild.interval) return message.reply ('**بث آخر قيد التشغيل ، الرجاء الانتظار حتى ينتهي.**')
     let args = message.content
       .split(" ")
       .slice(1)
       .join(" ");
     if (!args) 
-      return message.reply ('**Please send after the command a message to broadcast it.**');
+      return message.reply ('**يرجى إرسال رسالة بعد الأمر لإرسالها**');
       
       message.channel
       .send(
@@ -119,8 +119,8 @@ client.on("message", async message => {
               });
             }
           
-          if (members == null) return message.reply ('**Invalid number**');
-          if (members.length == 0) return message.reply ('**No number found.**');
+          if (members == null) return message.reply ('**رقم غير صالح**');
+          if (members.length == 0) return message.reply ('**لم يتم العثور على عضو.**');
           else {
             const msg = await message.channel.send (`Sending to ${members.length} members...`)
             var count = 0;
