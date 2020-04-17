@@ -54,7 +54,7 @@ client.on("message", async message => {
   if (!message.content.startsWith(prefix)) return;
   if (message.content.startsWith(prefix + "bc")) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply ('You dont have Permissions.');
-    if (message.guild.interval) return message.reply ('**بث آخر قيد التشغيل ، الرجاء الانتظار حتى ينتهي.**')
+    if (message.guild.interval) return message.reply ('**بث آخر قيد التشغيل ، الرجاء الانتظار حتى ينتهي**')
     let args = message.content
       .split(" ")
       .slice(1)
@@ -120,16 +120,16 @@ client.on("message", async message => {
             }
           
           if (members == null) return message.reply ('**رقم غير صالح**');
-          if (members.length == 0) return message.reply ('**لم يتم العثور على عضو.**');
+          if (members.length == 0) return message.reply ('**لم يتم العثور على الرقم.**');
           else {
-            const msg = await message.channel.send (`Sending to ${members.length} members...`)
+            const msg = await message.channel.send (`**جاري ارسال الرسالة إلى ${members.length} عضواً...**`)
             var count = 0;
             var ycount = 0;
             var xcount = 0;
             message.guild.interval = await setInterval (() => {
               if (!members [count]) {
                 clearInterval (message.guild.inter);
-                msg.edit (new Discord.RichEmbed().setDescription(`** Successfully sent the broadcast to ${ycount} members\nand i couldn't send the broadcast to ${xcount} members.**`).setTimestamp());
+                msg.edit (new Discord.RichEmbed().setDescription(`** :mailbox_with_mail:  | تم أرسال الرسالة الى  ${ycount} عضواً\n:lock: | و لم أستطع أرسال الرسالة إلى ${xcount} عضواً**`).setTimestamp());
                 message.guild.interval = false;
               } else if (!members[count].user.bot) {
                 members [count].send (`${args}`).then (() => {
