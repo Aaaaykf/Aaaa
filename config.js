@@ -1,5 +1,5 @@
 module.exports = {
-    TOKEN: 'NDY1NTU1MTg4MDc4NjA4NDA0.XpoIRw.1_JAFklXiL51nvbx80sf1b_WYFY',    
+    TOKEN: 'Njk3NTE2MTg2Njk4Nzc2NTg2.XpuM3Q.64bfeW-D4ncnLqxnML8ziAsfV5o',    
     prefix: '#',
-    devs: ['359541019836022784']
+    devs: ['569554557294739487']
 }

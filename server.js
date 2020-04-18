@@ -122,7 +122,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "279557901922729984") return;
+    if (!message.author.id === "569554557294739487") return;
     client.user.setUsername(args);
     message.channel.send(`تم تغيير الاسم الى ..**${args}** `);
   } else if (message.content.startsWith(prefix + "setavatar")) {
@@ -130,7 +130,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "279557901922729984") return;
+    if (!message.author.id === "569554557294739487") return;
     client.user.setAvatar(args).catch(err => message.reply("send a valid url"));
     message.channel.send(`تم تغيير الصورة الى :**${args}** `);
   }
