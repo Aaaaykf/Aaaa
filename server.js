@@ -11,9 +11,9 @@ setInterval(() => {
 
 // كل البكجات الي ممكن تحتجها في اي بوت 
 const Discord = require("discord.js");
-const {TOKEN, YT_API_KEY, prefix, devs} = require('./config')
+const {YT_API_KEY, prefix, devs} = require('./config')
 const client = new Discord.Client({ disableEveryone: true})
-client.login(TOKEN);
+client.login(process.env.TOKEN);
 client.on('ready', () => { 
   console.log(`Logged in as ${client.user.tag}!`);
   
