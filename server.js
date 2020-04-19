@@ -6,10 +6,10 @@ app.get("/", (request, response) => {
 });
 app.listen(process.env.PORT);
 setInterval(() => {
-  http.get(`http://test-store-bc.glitch.me/`);
+  http.get(`http://name.glitch.me/`); /// حط اسم المشروع تبعك name تعديل مهم بدل
 }, 280000);
 
-// كل البكجات الي ممكن تحتجها في اي بوت 
+// بكجات
 const Discord = require("discord.js");
 const {YT_API_KEY, prefix, devs} = require('./config')
 const client = new Discord.Client({ disableEveryone: true})
@@ -20,7 +20,7 @@ client.on('ready', () => {
 });
  
 
- //كود برودكاست
+ //كود البرودكاست
 
 client.on("message", async message => {
   if (!message.guild || message.author.bot) return;
@@ -122,7 +122,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "569554557294739487") return;
+    if (!message.author.id === "569554557294739487") return; ///تعديل مهم حط الايدي تبعك
     client.user.setUsername(args);
     message.channel.send(`تم تغيير الاسم الى ..**${args}** `);
   } else if (message.content.startsWith(prefix + "setavatar")) {
@@ -130,7 +130,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "569554557294739487") return;
+    if (!message.author.id === "569554557294739487") return; /// تعديل مهم حط الايدي تبعك
     client.user.setAvatar(args).catch(err => message.reply("send a valid url"));
     message.channel.send(`تم تغيير الصورة الى :**${args}** `);
   }
@@ -145,6 +145,6 @@ client.on("ready", () => {
   client.user.setStatus("idle");
 });
 client.on("ready", () => {
-  client.user.setActivity(`${prefix}bc Test Store`, { type: "WATCHING" });
+  client.user.setActivity(`${prefix}bc`, { type: "WATCHING" });
 });
 
