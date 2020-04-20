@@ -2,150 +2,188 @@ const http = require('http');
 const express = require('express');
 const app = express();
 app.get("/", (request, response) => {
-  response.sendStatus(200);
+    response.sendStatus(200);
 });
 app.listen(process.env.PORT);
 setInterval(() => {
-  http.get(`http://osama54544f.glitch.me/`); /// حط اسم المشروع تبعك name تعديل مهم بدل
+    http.get(`http://osama54544f.glitch.me/`); /// حط اسم المشروع تبعك name تعديل مهم بدل
 }, 280000);
 
 // بكجات
 const Discord = require("discord.js");
-const {YT_API_KEY, prefix, devs} = require('./config')
-const client = new Discord.Client({ disableEveryone: true})
+const {
+    YT_API_KEY,
+    prefix,
+    devs
+} = require('./config')
+const client = new Discord.Client({
+    disableEveryone: true
+})
 client.login(process.env.TOKEN);
-client.on('ready', () => { 
-  console.log(`Logged in as ${client.user.tag}!`);
-  
-});
- 
+client.on('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
 
- //كود البرودكاست
+});
+
+
+//كود البرودكاست
 
 client.on("message", async message => {
-  if (!message.guild || message.author.bot) return;
-  if (!message.content.startsWith(prefix)) return;
-  if (message.content.startsWith(prefix + "bc")) {
-    if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply ('You dont have Permissions.');
-    if (message.guild.interval) return message.reply ('**بث آخر قيد التشغيل ، الرجاء الانتظار حتى ينتهي**')
-    let args = message.content
-      .split(" ")
-      .slice(1)
-      .join(" ");
-    if (!args) 
-      return message.reply ('**يرجى إرسال رسالة بعد الأمر لإرسالها**');
-      
-      message.channel
-      .send(
-        ">>> **[1] جميع الاعضاء\n[2] الاعضاء المتصلين\n[3] الرتب الخاصة\n[0] الغاء الأمر**"
-      )
-      .then(m => {
-        message.channel
-          .awaitMessages(msg => msg.author.id === message.author.id, {
-            max: 1,
-            time: 1000 * 60 * 2,
-            errors: ["time"]
-          })
-          .then(async (c) => {
-          var members = null;
-            if (c.first().content === "1") {
-              members = message.guild.members.array ();
-              c.first().delete();
-              m.delete();
-            }
-            if (c.first().content === "2") {
-              members = message.guild.members
-                .filter(m => m.presence.status !== "offline").array();
+    if (!message.guild || message.author.bot) return;
+    if (!message.content.startsWith(prefix)) return;
+    if (message.content.startsWith(prefix + "bc")) {
+        if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply('You dont have Permissions.');
+        if (message.guild.interval) return message.reply('**بث آخر قيد التشغيل ، الرجاء الانتظار حتى ينتهي**')
+        let args = message.content
+            .split(" ")
+            .slice(1)
+            .join(" ");
+        if (!args)
+            return message.reply('**يرجى إرسال رسالة بعد الأمر لإرسالها**');
 
-              c.first().delete();
-              m.delete();
-            }
-            if (c.first().content == "0") {
-              c.first().delete();
-              m.delete();
-              message.channel.send("**تم الغاء الامر بنجاح**");
-            }
-            if (c.first().content === "3") {
-              m.edit("**>>> ادخل اسم الرتبة من فضلك**").then(ms => {
+        message.channel
+            .send(
+                ">>> **[1] جميع الاعضاء\n[2] الاعضاء المتصلين\n[3] الرتب الخاصة\n[0] الغاء الأمر**"
+            )
+            .then(m => {
                 message.channel
-                  .awaitMessages(msg => msg.author.id === message.author.id, {
-                    max: 1,
-                    time: 1000 * 60 * 2,
-                    errors: ["time"]
-                  })
-                  .then(c => {
-                    let role = message.guild.roles.find(
-                      role => role.name === c.first().content
-                    );
-                    if (!role)
-                      return message.channel
-                        .send("**:x: لا استطيع العثور على الرتبة الخاصة بالرسالة**")
-                        .then(() => {
-                          ms.delete();
-                          c.first().delete();
-                        });
-                    let roleID = role.id;
-                    members = message.guild.roles.get(roleID).members.array();
-                    c.first().delete();
-                    m.delete();
-                  });
-              });
-            }
-          
-          if (members == null) return message.reply ('**رقم غير صالح**');
-          if (members.length == 0) return message.reply ('**لم يتم العثور على الرقم.**');
-          else {
-            const msg = await message.channel.send (`**جاري إرسال الرسالة إلى ${members.length} عضواً...**`)
-            var count = 0;
-            var ycount = 0;
-            var xcount = 0;
-            message.guild.interval = await setInterval (() => {
-              if (!members [count]) {
-                clearInterval (message.guild.inter);
-                msg.edit (new Discord.RichEmbed().setDescription(`** :mailbox_with_mail:  ؛ تم أرسال الرسالة الى  ${ycount} عضواً\n:lock: ؛ و لم أستطع أرسال الرسالة إلى ${xcount} عضواً**`).setTimestamp());
-                message.guild.interval = false;
-              } else if (!members[count].user.bot) {
-                members [count].send (`${args}`).then (() => {
-                  ycount++;
-                }).catch (err => {
-                  return xcount++;
-                });
-              }
-              count++;
-            }, 500)
-          }
-          })
-          .catch(() => m.delete());
-      });
-  } else if (message.content.startsWith(prefix + "setname")) {
-    let args = message.content
-      .split(" ")
-      .slice(1)
-      .join(" ");
-    if (!message.author.id === "359541019836022784") return; ///تعديل مهم حط الايدي تبعك
-    client.user.setUsername(args);
-    message.channel.send(`تم تغيير الاسم الى ..**${args}** `);
-  } else if (message.content.startsWith(prefix + "setavatar")) {
-    let args = message.content
-      .split(" ")
-      .slice(1)
-      .join(" ");
-    if (!message.author.id === "359541019836022784") return; /// تعديل مهم حط الايدي تبعك
-    client.user.setAvatar(args).catch(err => message.reply("send a valid url"));
-    message.channel.send(`تم تغيير الصورة الى :**${args}** `);
-  }
+                    .awaitMessages(msg => msg.author.id === message.author.id, {
+                        max: 1,
+                        time: 1000 * 60 * 2,
+                        errors: ["time"]
+                    })
+                    .then(async (c) => {
+                        var members = null;
+                        if (c.first().content === "1") {
+                            members = message.guild.members.array();
+                            c.first().delete().catch (err => null);
+                            m.delete().catch (err => null);
+                        }
+                        if (c.first().content === "2") {
+                            members = message.guild.members
+                                .filter(m => m.presence.status !== "offline").array();
+
+                            c.first().delete().catch (err => null);
+                            m.delete().catch (err => null);
+                        }
+                        if (c.first().content == "0") {
+                            c.first().delete().catch (err => null);
+                            m.delete().catch (err => null);
+                            message.channel.send("**تم الغاء الامر بنجاح**");
+                        }
+                        if (c.first().content === "3") {
+                            m.edit("**>>> ادخل اسم الرتبة من فضلك**").then(ms => {
+                                message.channel
+                                    .awaitMessages(msg => msg.author.id === message.author.id, {
+                                        max: 1,
+                                        time: 1000 * 60 * 2,
+                                        errors: ["time"]
+                                    })
+                                    .then(async collected => {
+                                        let role = message.guild.roles.find(
+                                            role => role.name === collected.first().content
+                                        );
+                                        if (!role)
+                                            return message.channel
+                                                .send("**:x: لا استطيع العثور على الرتبة الخاصة بالرسالة**")
+                                                .then(() => {
+                                                    ms.delete().catch (err => null);
+                                                    collected.first().delete().catch (err => null);
+                                                });
+
+                                        let roleID = role.id;
+                                        members = message.guild.roles.get(roleID).members.array();
+                                        if (members == null) return message.reply('**رقم غير صالح**');
+                                        if (members.length == 0) return message.reply('**لم يتم العثور على الرقم.**');
+                                        else {
+                                            const msg = await message.channel.send(`**جاري إرسال الرسالة إلى ${members.length} عضواً...**`)
+                                            var count = 0;
+                                            var ycount = 0;
+                                            var xcount = 0;
+                                            message.guild.interval = await setInterval(() => {
+                                                if (!members[count]) {
+                                                    clearInterval(message.guild.inter);
+                                                    msg.edit(new Discord.RichEmbed().setDescription(`** :mailbox_with_mail:  ؛ تم أرسال الرسالة الى  ${ycount} عضواً\n:lock: ؛ و لم أستطع أرسال الرسالة إلى ${xcount} عضواً**`).setTimestamp());
+                                                    message.guild.interval = false;
+                                                } else if (!members[count].user.bot) {
+                                                    members[count].send(`${args}`).then(() => {
+                                                        ycount++;
+                                                    }).catch(err => {
+                                                        return xcount++;
+                                                    });
+                                                }
+                                                count++;
+                                            }, 500)
+                                        }
+                                        collected.first().delete();
+                                        m.delete();
+                                    }).catch(err => {
+                                        return ms.delete().catch (err => null);
+                                    })
+                            });
+                        };
+                        if (['1', '2'].includes(c.first().content)) {
+                            if (members == null) return message.reply('**رقم غير صالح**');
+                            if (members.length == 0) return message.reply('**لم يتم العثور على الرقم.**');
+                            else {
+                                const msg = await message.channel.send(`**جاري إرسال الرسالة إلى ${members.length} عضواً...**`)
+                                var count = 0;
+                                var ycount = 0;
+                                var xcount = 0;
+                                message.guild.interval = await setInterval(() => {
+                                    if (!members[count]) {
+                                        clearInterval(message.guild.inter);
+                                        msg.edit(new Discord.RichEmbed().setDescription(`** :mailbox_with_mail:  ؛ تم أرسال الرسالة الى  ${ycount} عضواً\n:lock: ؛ و لم أستطع أرسال الرسالة إلى ${xcount} عضواً**`).setTimestamp());
+                                        message.guild.interval = false;
+                                    } else if (!members[count].user.bot) {
+                                        members[count].send(`${args}`).then(() => {
+                                            ycount++;
+                                        }).catch(err => {
+                                            return xcount++;
+                                        });
+                                    }
+                                    count++;
+                                }, 500)
+                            }
+                        }
+
+
+                    })
+                    .catch((err) => {
+                        return m.delete().catch (err => null);
+                    });
+            });
+    } else if (message.content.startsWith(prefix + "setname")) {
+        let args = message.content
+            .split(" ")
+            .slice(1)
+            .join(" ");
+        if (!message.author.id === "359541019836022784") return; ///تعديل مهم حط الايدي تبعك
+        client.user.setUsername(args);
+        message.channel.send(`تم تغيير الاسم الى ..**${args}** `);
+    } else if (message.content.startsWith(prefix + "setavatar")) {
+        let args = message.content
+            .split(" ")
+            .slice(1)
+            .join(" ");
+        if (!message.author.id === "359541019836022784") return; /// تعديل مهم حط الايدي تبعك
+        client.user.setAvatar(args).catch(err => message.reply("send a valid url"));
+        message.channel.send(`تم تغيير الصورة الى :**${args}** `);
+    }
 });
 
 ///تغير الحالة
 
 client.on("ready", () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+    console.log(`Logged in as ${client.user.tag}!`);
 });
 client.on("ready", () => {
-  client.user.setStatus("online"); ///تعديل مهم لون الحالة
+    client.user.setStatus("online"); ///تعديل مهم لون الحالة
 });
 client.on("ready", () => {
-  client.user.setActivity(`برودكاست سيرفر هاي${prefix}bc`, { type: "WATCHING" }); ///تعديل حالة البوت
+    client.user.setActivity(`برودكاست سيرفر هاي${prefix}bc`, {
+        type: "WATCHING"
+    }); ///تعديل حالة البوت
 });
 
 //online
