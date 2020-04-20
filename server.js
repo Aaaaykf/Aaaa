@@ -145,6 +145,6 @@ client.on("ready", () => {
   client.user.setStatus("idle");
 });
 client.on("ready", () => {
-  client.user.setActivity(`${prefix}bc`, { type: "WATCHING" });
+  client.user.setActivity(`${prefix}bc`, { type: "WATCHING" }); ///تعديل حالة البوت
 });
 
