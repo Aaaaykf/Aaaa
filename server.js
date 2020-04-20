@@ -142,9 +142,13 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 client.on("ready", () => {
-  client.user.setStatus("idle");
+  client.user.setStatus("idle"); ///تعديل مهم لون الحالة
 });
 client.on("ready", () => {
   client.user.setActivity(`${prefix}bc`, { type: "WATCHING" }); ///تعديل حالة البوت
 });
 
+//online
+//idle
+//dnd
+//offline
