@@ -6,7 +6,7 @@ app.get("/", (request, response) => {
 });
 app.listen(process.env.PORT);
 setInterval(() => {
-  http.get(`http://name.glitch.me/`); /// حط اسم المشروع تبعك name تعديل مهم بدل
+  http.get(`http://osama54544f.glitch.me/`); /// حط اسم المشروع تبعك name تعديل مهم بدل
 }, 280000);
 
 // بكجات
@@ -122,7 +122,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "569554557294739487") return; ///تعديل مهم حط الايدي تبعك
+    if (!message.author.id === "359541019836022784") return; ///تعديل مهم حط الايدي تبعك
     client.user.setUsername(args);
     message.channel.send(`تم تغيير الاسم الى ..**${args}** `);
   } else if (message.content.startsWith(prefix + "setavatar")) {
@@ -130,7 +130,7 @@ client.on("message", async message => {
       .split(" ")
       .slice(1)
       .join(" ");
-    if (!message.author.id === "569554557294739487") return; /// تعديل مهم حط الايدي تبعك
+    if (!message.author.id === "359541019836022784") return; /// تعديل مهم حط الايدي تبعك
     client.user.setAvatar(args).catch(err => message.reply("send a valid url"));
     message.channel.send(`تم تغيير الصورة الى :**${args}** `);
   }
@@ -142,10 +142,10 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 client.on("ready", () => {
-  client.user.setStatus("idle"); ///تعديل مهم لون الحالة
+  client.user.setStatus("online"); ///تعديل مهم لون الحالة
 });
 client.on("ready", () => {
-  client.user.setActivity(`${prefix}bc`, { type: "WATCHING" }); ///تعديل حالة البوت
+  client.user.setActivity(`برودكاست سيرفر هاي${prefix}bc`, { type: "WATCHING" }); ///تعديل حالة البوت
 });
 
 //online
