@@ -6,7 +6,7 @@ app.get("/", (request, response) => {
 });
 app.listen(process.env.PORT);
 setInterval(() => {
-    http.get(`http://name.glitch.me/`); /// حط اسم المشروع تبعك name تعديل مهم بدل
+    http.get(`http://brodcast-botvbrodcast-bot-v12/`); /// حط اسم المشروع تبعك name تعديل مهم بدل
 }, 280000);
 
 // بكجات
