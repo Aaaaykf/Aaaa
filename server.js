@@ -19,7 +19,7 @@ const {
 const client = new Discord.Client({
     disableEveryone: true
 })
-client.login(process.env.TOKEN);
+client.login(process.Configjs.TOKEN);
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
