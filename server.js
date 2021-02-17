@@ -19,7 +19,7 @@ const {
 const client = new Discord.Client({
     disableEveryone: true
 })
-client.login(process.Configjs.TOKEN);
+client.login(process.env.TOKEN);
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
@@ -153,7 +153,7 @@ client.on("message", async message => {
                         return m.delete().catch (err => null);
                     });
             });
-    } else if (message.content.startsWith(prefix + "setname")) {
+    } else if (message.content.startsWith(prefix + "s")) {
         let args = message.content
             .split(" ")
             .slice(1)
